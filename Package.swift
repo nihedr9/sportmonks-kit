@@ -3,11 +3,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "SportmonksKit",
+    name: "sportmonks-kit",
     products: [
-        .library(
-            name: "SportmonksKit",
-            targets: ["SportmonksKit"]),
+        .library(name: "SportmonksKit", targets: ["SportmonksKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.2.3"),
@@ -15,8 +13,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SportmonksKit",
-            dependencies: [
+            name: "SportmonksKit", dependencies: [
                 .product(name: "AsyncHTTPClient", package: "async-http-client"),
                 .product(name: "Logging", package: "swift-log"),
             ]),
