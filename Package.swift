@@ -3,11 +3,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "sportmonks-kit",
+    name: "SportmonksKit",
     products: [
         .library(
-            name: "sportmonks-kit",
-            targets: ["sportmonks-kit"]),
+            name: "SportmonksKit",
+            targets: ["SportmonksKit"]),
     ],
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.2.3"),
@@ -15,13 +15,13 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "sportmonks-kit",
+            name: "SportmonksKit",
             dependencies: [
                 .product(name: "AsyncHTTPClient", package: "async-http-client"),
                 .product(name: "Logging", package: "swift-log"),
             ]),
         .testTarget(
-            name: "sportmonks-kitTests",
-            dependencies: ["sportmonks-kit"]),
+            name: "SportmonksKitTests",
+            dependencies: ["SportmonksKit"]),
     ]
 )
