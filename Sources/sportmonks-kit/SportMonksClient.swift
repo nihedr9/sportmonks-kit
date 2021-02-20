@@ -11,15 +11,15 @@ import NIO
 import Logging
 
 public final class SportMonksClient {
-    
+
     var eventLoop: EventLoop
-    
+
     private let httpClient: HTTPClient
     private let logger: Logger
     private let apiKey: String
-    
+
     private let decoder = JSONDecoder()
-    
+
     init(httpClient: HTTPClient, eventLoop: EventLoop, logger: Logger, apiKey: String) {
         self.httpClient = httpClient
         self.eventLoop = eventLoop
@@ -28,8 +28,8 @@ public final class SportMonksClient {
         decoder.dateDecodingStrategy = .secondsSince1970
         decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
-    
-    public func send<Model: Decodable>(_ apiRequest: ApiRequest) -> EventLoopFuture<Model> {
+
+    public func send<Model: SMModel>(_ apiRequest: ApiRequest) -> EventLoopFuture<Model> {
         do {
             let clientRequest = try HTTPClient.Request(apiRequest)
             return httpClient
@@ -39,7 +39,7 @@ public final class SportMonksClient {
                         fatalError("Response body from Stripe is missing! This should never happen.")
                     }
                     let responseData = Data(byteBuffer.readableBytesView)
-                    
+
                     do {
                         guard response.status == .ok else {
                             return self.eventLoop.makeFailedFuture(try self.decoder.decode(SMError.self, from: responseData))
@@ -56,5 +56,7 @@ public final class SportMonksClient {
 }
 
 // TODO:
-public final class SMError: Decodable, Error {
+public final class SMError: Codable, Error {
 }
+
+public class SMModel: Codable {}
