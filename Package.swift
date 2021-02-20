@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "sportmonks-kit",
+    platforms: [
+        .macOS(.v10_15)
+    ],
     products: [
         .library(name: "SportmonksKit", targets: ["SportmonksKit"]),
     ],
