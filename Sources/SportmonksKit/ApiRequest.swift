@@ -13,7 +13,7 @@ public enum ApiRequest {
     static let apiPath = "/api"
     static let apiVersion = "/v2.0"
 
-    case leagues
+    case leagues(String)
 
     var method: HTTPMethod {
         switch self {
@@ -36,7 +36,14 @@ public enum ApiRequest {
         }
     }
 
+    var query: String {
+        switch self {
+        case .leagues(let apiKey):
+            return "api_token=\(apiKey)"
+        }
+    }
+
     var url: String {
-        Self.baseUri + Self.apiPath + Self.apiVersion + path
+        Self.baseUri + Self.apiPath + Self.apiVersion + path + "?\(query)"
     }
 }
